@@ -19,10 +19,9 @@ class TomlSerializer internal constructor(private val config: TomlSerializerConf
     fun write(tomlDocument: TomlDocument, output: Appendable) {
         TomlSerializerState(
 
-
-
-
-	config, 						output)						.writePath(tomlDocument, emptyList())
+            config,
+            output,
+        ).writePath(tomlDocument, emptyList())
     }
 
     /**
