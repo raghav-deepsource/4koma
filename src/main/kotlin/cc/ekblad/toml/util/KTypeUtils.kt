@@ -8,7 +8,7 @@ import kotlin.reflect.full.createType
 
 private fun KTypeProjection.subst(substitutions: Map<KTypeParameter, KType>) = KTypeProjection(
     variance = variance,
-    type = type?.subst(substitutions)
+    type = type?.subst(substitutions),
 )
 
 /**
@@ -20,7 +20,7 @@ internal fun KType.subst(substitutions: Map<KTypeParameter, KType>): KType =
         is KClass<*> -> kClassifier.createType(
             arguments = arguments.map { it.subst(substitutions) },
             nullable = isMarkedNullable,
-            annotations = annotations
+            annotations = annotations,
         )
         else -> substitutions[kClassifier] ?: this
     }

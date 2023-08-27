@@ -103,7 +103,7 @@ tasks {
 
     generateGrammarSource {
         outputDirectory = Paths.get(
-            "build", "generated-src", "antlr", "main", "cc", "ekblad", "toml", "parser"
+            "build", "generated-src", "antlr", "main", "cc", "ekblad", "toml", "parser",
         ).toFile()
         mustRunAfter("runKtlintCheckOverMainSourceSet")
         mustRunAfter("dokkaHtml")
@@ -164,8 +164,8 @@ tasks {
                     fileTree(it).exclude {
                         it.name.contains("special\$\$inlined")
                     }
-                }
-            )
+                },
+            ),
         )
     }
 

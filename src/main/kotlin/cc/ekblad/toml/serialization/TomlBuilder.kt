@@ -81,11 +81,11 @@ internal class TomlBuilder private constructor() {
                 is MutableTomlValue.List -> newContext.value.last().value
                 is MutableTomlValue.InlineMap -> throw TomlException.ParseError(
                     "extending inline table '$fragment' is not allowed",
-                    line
+                    line,
                 )
                 else -> throw TomlException.ParseError(
                     "tried to extend non-table '$fragment'",
-                    line
+                    line,
                 )
             }
         }.let(TomlBuilder::ContextImpl)

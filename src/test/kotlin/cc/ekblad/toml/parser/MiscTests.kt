@@ -20,9 +20,9 @@ class MiscTests : StringTest {
             "strings" to TomlValue.List(
                 TomlValue.String("foo"),
                 TomlValue.String("bar"),
-                TomlValue.String("baz")
-            )
-        )
+                TomlValue.String("baz"),
+            ),
+        ),
     )
 
     @Test
@@ -77,7 +77,7 @@ class MiscTests : StringTest {
                ["#"]]]]#]
                ]
                tbl1 = { "#" = '}#'}#}}
-            """.trimIndent()
+            """.trimIndent(),
         )
         val expected = TomlValue.Map(
             "section" to TomlValue.Map(
@@ -90,26 +90,26 @@ class MiscTests : StringTest {
                 "six" to TomlValue.Integer(6),
                 "8" to TomlValue.String("eight"),
                 "ten" to TomlValue.Double(10e2),
-                "eleven" to TomlValue.Double(1.11e1)
+                "eleven" to TomlValue.Double(1.11e1),
             ),
             "hash#tag" to TomlValue.Map(
                 "#!" to TomlValue.String("hash bang"),
                 "arr3" to TomlValue.List(
                     TomlValue.String("#"),
                     TomlValue.String("#"),
-                    TomlValue.String("###")
+                    TomlValue.String("###"),
                 ),
                 "arr4" to TomlValue.List(
                     TomlValue.Integer(1),
                     TomlValue.Integer(2),
                     TomlValue.Integer(3),
-                    TomlValue.Integer(4)
+                    TomlValue.Integer(4),
                 ),
                 "arr5" to TomlValue.List(
-                    TomlValue.List(TomlValue.List(TomlValue.List(TomlValue.List(TomlValue.String("#")))))
+                    TomlValue.List(TomlValue.List(TomlValue.List(TomlValue.List(TomlValue.String("#"))))),
                 ),
-                "tbl1" to TomlValue.Map("#" to TomlValue.String("}#"))
-            )
+                "tbl1" to TomlValue.Map("#" to TomlValue.String("}#")),
+            ),
         )
         assertEquals(expected, actual)
     }
@@ -122,7 +122,7 @@ class MiscTests : StringTest {
                 bar = 123
                 
                 HELLO I AM GARBAGE
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -137,7 +137,7 @@ class MiscTests : StringTest {
                     [[asdf]]
                     bagu
                     fgs = "hello"
-                """.trimIndent()
+                """.trimIndent(),
             )
         }
         assertEquals(5, exception.line)
@@ -151,7 +151,7 @@ class MiscTests : StringTest {
     fun `key-value pair can end in CRLF`() {
         assertEquals(
             TomlValue.Map("foo" to TomlValue.Integer(123)),
-            TomlValue.from("foo = 123\r\n")
+            TomlValue.from("foo = 123\r\n"),
         )
     }
 
@@ -159,7 +159,7 @@ class MiscTests : StringTest {
     fun `comment can end in CRLF`() {
         assertEquals(
             TomlValue.Map(),
-            TomlValue.from("# Hello\r\n")
+            TomlValue.from("# Hello\r\n"),
         )
     }
 

@@ -147,9 +147,9 @@ class CustomDecoderTests {
             mapper.decode(
                 TomlValue.Map(
                     "name" to TomlValue.String("Anonymous"),
-                    "years" to TomlValue.Integer(123)
-                )
-            )
+                    "years" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -164,9 +164,9 @@ class CustomDecoderTests {
             mapper.decode(
                 TomlValue.Map(
                     "name" to TomlValue.String("Anonymous"),
-                    "age" to TomlValue.Integer(123)
-                )
-            )
+                    "age" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -176,7 +176,7 @@ class CustomDecoderTests {
             mapping<User>("name" to "age")
             mapping<User>(
                 "name" to "homeAddress",
-                "name" to "fullName"
+                "name" to "fullName",
             )
         }
         assertEquals(
@@ -184,9 +184,9 @@ class CustomDecoderTests {
             mapper.decode(
                 TomlValue.Map(
                     "name" to TomlValue.String("Anonymous"),
-                    "age" to TomlValue.Integer(123)
-                )
-            )
+                    "age" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -213,9 +213,9 @@ class CustomDecoderTests {
             mapper.decode(
                 TomlValue.Map(
                     "a" to TomlValue.Integer(0),
-                    "b" to TomlValue.Integer(123)
-                )
-            )
+                    "b" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -279,7 +279,7 @@ class CustomDecoderTests {
         val mapper = tomlMapper {
             mapping<User>(
                 "full_name" to "fullName",
-                "address" to "homeAddress"
+                "address" to "homeAddress",
             )
             mapping<Config>("user" to "users")
         }
@@ -287,8 +287,8 @@ class CustomDecoderTests {
         val expected = Config(
             listOf(
                 User("Bosse Bus", 47, null),
-                User("Dolan Duck", 107, null)
-            )
+                User("Dolan Duck", 107, null),
+            ),
         )
         assertEquals(expected, mapper.decode(TomlValue.from(toml)))
     }
@@ -312,15 +312,15 @@ class CustomDecoderTests {
         }
         assertEquals(
             "correct",
-            mapper.decode(TomlValue.String("correct"))
+            mapper.decode(TomlValue.String("correct")),
         )
         assertEquals(
             listOf("correct"),
-            mapper.decode(TomlValue.List(TomlValue.String("correct")))
+            mapper.decode(TomlValue.List(TomlValue.String("correct"))),
         )
         assertEquals(
             emptyList<String>(),
-            mapper.decode(TomlValue.List())
+            mapper.decode(TomlValue.List()),
         )
     }
 
@@ -332,11 +332,11 @@ class CustomDecoderTests {
         }
         val toml = TomlValue.Map(
             "a" to TomlValue.Integer(123),
-            "b" to TomlValue.String("hej")
+            "b" to TomlValue.String("hej"),
         )
         assertEquals(
             Foo(123, "hej"),
-            mapper.decode(toml)
+            mapper.decode(toml),
         )
     }
 
@@ -351,11 +351,11 @@ class CustomDecoderTests {
         )
         assertEquals(
             Foo(123, "defaulted"),
-            mapper.decode(toml)
+            mapper.decode(toml),
         )
         assertEquals(
             Foo(0, "defaulted"),
-            mapper.decode(TomlValue.Map())
+            mapper.decode(TomlValue.Map()),
         )
     }
 
@@ -379,7 +379,7 @@ class CustomDecoderTests {
         )
         assertEquals(
             expected,
-            mapper.decode(toml)
+            mapper.decode(toml),
         )
     }
 
@@ -394,20 +394,20 @@ class CustomDecoderTests {
 
         TomlValue.Map(
             "x" to TomlValue.Map(
-                "a" to TomlValue.Integer(123)
+                "a" to TomlValue.Integer(123),
             ),
             "y" to TomlValue.Integer(321),
         ).let { toml ->
             assertEquals(
                 Bar(Foo(123, "defaulted"), 321),
-                mapper.decode(toml)
+                mapper.decode(toml),
             )
         }
 
         TomlValue.Map("y" to TomlValue.Integer(321)).let { toml ->
             assertEquals(
                 Bar(Foo(1, "the whole foo is missing"), 321),
-                mapper.decode(toml)
+                mapper.decode(toml),
             )
         }
     }
@@ -425,9 +425,9 @@ class CustomDecoderTests {
             mapper.decode(
                 TomlValue.Map(
                     "name" to TomlValue.String("Anonymous"),
-                    "age" to TomlValue.Integer(123)
-                )
-            )
+                    "age" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -446,9 +446,9 @@ class CustomDecoderTests {
             mapper.decode(
                 TomlValue.Map(
                     "name" to TomlValue.String("Anonymous"),
-                    "years" to TomlValue.Integer(123)
-                )
-            )
+                    "years" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -465,9 +465,9 @@ class CustomDecoderTests {
             mapper.decode(
                 TomlValue.Map(
                     "fullName" to TomlValue.String("Anonymous"),
-                    "age" to TomlValue.Integer(123)
-                )
-            )
+                    "age" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -483,9 +483,9 @@ class CustomDecoderTests {
             mapper.decode(
                 TomlValue.Map(
                     "name" to TomlValue.String("Anonymous"),
-                    "age" to TomlValue.Integer(123)
-                )
-            )
+                    "age" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -499,9 +499,9 @@ class CustomDecoderTests {
             User("BobX", 123, "x"),
             mapper.decode(
                 TomlValue.Map(
-                    "age" to TomlValue.Integer(123)
-                )
-            )
+                    "age" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -517,9 +517,9 @@ class CustomDecoderTests {
             User("BobX", 123, "x"),
             mapper.decode(
                 TomlValue.Map(
-                    "age" to TomlValue.Integer(123)
-                )
-            )
+                    "age" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -537,9 +537,9 @@ class CustomDecoderTests {
             mapper.decode(
                 TomlValue.Map(
                     "name" to TomlValue.String("Anonymous"),
-                    "age" to TomlValue.Integer(123)
-                )
-            )
+                    "age" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 
@@ -556,9 +556,9 @@ class CustomDecoderTests {
             mapper.decode(
                 TomlValue.Map(
                     "name" to TomlValue.String("Anonymous"),
-                    "age" to TomlValue.Integer(123)
-                )
-            )
+                    "age" to TomlValue.Integer(123),
+                ),
+            ),
         )
     }
 }

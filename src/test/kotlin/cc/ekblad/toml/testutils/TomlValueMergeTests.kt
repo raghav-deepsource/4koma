@@ -16,26 +16,26 @@ class TomlValueMergeTests : UnitTest {
                 "bar" to TomlValue.Map("baz" to TomlValue.String("asd")),
                 "qwe" to TomlValue.LocalDateTime(now),
                 "jkl" to TomlValue.Integer(100),
-            )
+            ),
         )
         val rhs = TomlValue.Map(
             "foo" to TomlValue.Map(
                 "bar" to TomlValue.Map(
                     "baz" to TomlValue.String("qwe"),
-                    "xcv" to TomlValue.Integer(321)
+                    "xcv" to TomlValue.Integer(321),
                 ),
-                "jkl" to TomlValue.Bool(false)
-            )
+                "jkl" to TomlValue.Bool(false),
+            ),
         )
         val expected = TomlValue.Map(
             "foo" to TomlValue.Map(
                 "bar" to TomlValue.Map(
                     "baz" to TomlValue.String("qwe"),
-                    "xcv" to TomlValue.Integer(321)
+                    "xcv" to TomlValue.Integer(321),
                 ),
                 "qwe" to TomlValue.LocalDateTime(now),
-                "jkl" to TomlValue.Bool(false)
-            )
+                "jkl" to TomlValue.Bool(false),
+            ),
         )
         assertEquals(expected, lhs.merge(rhs))
     }
@@ -46,7 +46,7 @@ class TomlValueMergeTests : UnitTest {
         val rhs = TomlValue.Map("bar" to TomlValue.Integer(123))
         val expected = TomlValue.Map(
             "foo" to TomlValue.String("bar"),
-            "bar" to TomlValue.Integer(123)
+            "bar" to TomlValue.Integer(123),
         )
         assertEquals(expected, lhs.merge(rhs))
     }
@@ -74,7 +74,7 @@ class TomlValueMergeTests : UnitTest {
         val expected = TomlValue.Map(
             "foo" to TomlValue.String("bar"),
             "bar" to TomlValue.Integer(123),
-            "baz" to TomlValue.Double(1.23)
+            "baz" to TomlValue.Double(1.23),
         )
         assertEquals(expected, lhs.merge(rhs))
     }

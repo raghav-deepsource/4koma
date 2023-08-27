@@ -16,7 +16,7 @@ class TomlMapperConfigurator internal constructor(
     private val encoders: MutableMap<KClass<*>, MutableList<TomlEncoder.(Any) -> TomlValue>>,
     private val decoders: MutableMap<KClass<*>, MutableList<TomlDecoder.(KType, TomlValue) -> Any?>>,
     private val mappings: MutableMap<KClass<*>, MutableMap<TomlName, KotlinName>>,
-    private val defaultValues: MutableMap<KClass<*>, Any>
+    private val defaultValues: MutableMap<KClass<*>, Any>,
 ) {
     /**
      * Configures a custom property mapping for the type Kotlin type `T`, where `T` is any class with
@@ -86,7 +86,9 @@ class TomlMapperConfigurator internal constructor(
      *
      */
     inline fun <reified T : Any> encoder(noinline encoder: TomlEncoder.(kotlinValue: T) -> TomlValue) {
-        encoder(T::class) @JacocoIgnore("inlined") { value ->
+        encoder(T::class)
+        @JacocoIgnore("inlined")
+        { value ->
             if (value !is T) {
                 pass()
             }
@@ -144,9 +146,11 @@ class TomlMapperConfigurator internal constructor(
      *
      */
     inline fun <reified T : TomlValue, reified R : Any> decoder(
-        noinline decoder: TomlDecoder.(targetType: KType, tomlValue: T) -> R?
+        noinline decoder: TomlDecoder.(targetType: KType, tomlValue: T) -> R?,
     ) {
-        decoder(R::class) @JacocoIgnore("inlined") { kType, value ->
+        decoder(R::class)
+        @JacocoIgnore("inlined")
+        { kType, value ->
             if (value !is T) {
                 pass()
             }
@@ -175,7 +179,9 @@ class TomlMapperConfigurator internal constructor(
      * Convenience overload for [decoder], for when you don't need to consider the full target KType.
      */
     inline fun <reified T : TomlValue, reified R : Any> decoder(crossinline decoder: TomlDecoder.(tomlValue: T) -> R?) =
-        decoder<T, R> @JacocoIgnore("inlined") { _, it -> decoder(it) }
+        decoder<T, R>
+        @JacocoIgnore("inlined")
+        { _, it -> decoder(it) }
 
     @InternalAPI
     fun <T : Any> mapping(kClass: KClass<T>, mappings: List<Pair<TomlName, KotlinName>>) {
@@ -217,5 +223,5 @@ internal data class TomlMapperConfig(
     val encoders: Map<KClass<*>, List<TomlEncoder.(Any) -> TomlValue>>,
     val decoders: Map<KClass<*>, List<TomlDecoder.(KType, TomlValue) -> Any?>>,
     val mappings: Map<KClass<*>, Map<TomlName, KotlinName>>,
-    val defaultValues: Map<KClass<*>, Any>
+    val defaultValues: Map<KClass<*>, Any>,
 )

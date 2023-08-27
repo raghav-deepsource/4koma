@@ -16,7 +16,7 @@ class FloatTests : RandomTest {
         random.values(100) {
             Pair(
                 nextInt(-1000, 1000),
-                nextInt(0, 1000)
+                nextInt(0, 1000),
             )
         }.assertAll { (int, frac) ->
             val doubleFrac = if (int < 0) { -(frac/1000.0) } else { frac / 1000.0 }
@@ -44,7 +44,7 @@ class FloatTests : RandomTest {
         random.values(100) {
             Pair(
                 nextInt(-1000, 1000),
-                nextInt(-5, 5)
+                nextInt(-5, 5),
             )
         }.assertAll { (nom, exp) ->
             val expected = nom * 10.0.pow(exp)
@@ -58,7 +58,7 @@ class FloatTests : RandomTest {
         random.values(100) {
             Pair(
                 nextDouble(-1000.0, 1000.0),
-                nextInt(-5, 5)
+                nextInt(-5, 5),
             )
         }.assertAll { (nom, exp) ->
             val expected = nom * 10.0.pow(exp)
@@ -74,7 +74,7 @@ class FloatTests : RandomTest {
             "1_2e3_4" to 12e34,
             "1_1.2_2e3_4" to 11.22e34,
             "1.9_1" to 1.91,
-            "1e0_9" to 1e9
+            "1e0_9" to 1e9,
         ).assertAll { (string, expected) ->
             assertParsesWithin(expected, string)
         }

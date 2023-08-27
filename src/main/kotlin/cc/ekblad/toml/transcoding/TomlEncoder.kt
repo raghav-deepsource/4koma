@@ -79,7 +79,9 @@ private fun TomlEncoder.fromDataClass(value: Any): TomlValue.Map {
     val parameterNames = value::class.primaryConstructor!!.parameters.map { it.name }.toSet()
     val propertiesToEncode = value::class.declaredMemberProperties.filter { it.name in parameterNames }
     val fields = propertiesToEncode.mapNotNull { p ->
-        val prop = @Suppress("UNCHECKED_CAST") (p as KProperty1<Any, Any?>)
+        val prop =
+            @Suppress("UNCHECKED_CAST")
+            (p as KProperty1<Any, Any?>)
         val tomlName = tomlNamesByParameterName[prop.name] ?: prop.name
         val oldAccessible = prop.isAccessible
         try {

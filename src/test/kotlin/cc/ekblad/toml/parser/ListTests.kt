@@ -17,21 +17,21 @@ class ListTests : UnitTest {
     fun `can parse list of inline tables`() {
         assertParsesTo(
             TomlValue.List(TomlValue.Map()),
-            "[{}]"
+            "[{}]",
         )
         assertParsesTo(
             TomlValue.List(
                 TomlValue.Map("a" to TomlValue.Integer(1)),
-                TomlValue.Map("b" to TomlValue.String("qwe"))
+                TomlValue.Map("b" to TomlValue.String("qwe")),
             ),
-            "[{a=1},{b='qwe'}]"
+            "[{a=1},{b='qwe'}]",
         )
         assertParsesTo(
             TomlValue.List(
                 TomlValue.Map("a" to TomlValue.Integer(1)),
-                TomlValue.Map("b" to TomlValue.String("qwe"))
+                TomlValue.Map("b" to TomlValue.String("qwe")),
             ),
-            "[  { a=1},\n{b='qwe'}\n]"
+            "[  { a=1},\n{b='qwe'}\n]",
         )
     }
 
@@ -72,13 +72,13 @@ class ListTests : UnitTest {
             listOf(
                 TomlValue.List(emptyList()),
                 TomlValue.Integer(123),
-                TomlValue.Double(Double.NaN)
+                TomlValue.Double(Double.NaN),
             ) to "[[],123,-nan]",
             listOf(
                 TomlValue.List(listOf(TomlValue.String("\n\thej"))),
                 TomlValue.Double(1.23e2),
                 TomlValue.Bool(false),
-                TomlValue.LocalDate(LocalDate.of(2011, 11, 11))
+                TomlValue.LocalDate(LocalDate.of(2011, 11, 11)),
             ) to "[['''\n\n\thej'''], 1.23e2 ,false,2011-11-11]",
         ).assertAll { (list, expr) ->
             assertParsesTo(TomlValue.List(list), expr)

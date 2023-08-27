@@ -35,7 +35,7 @@ class TableArrayTests : UnitTest {
             ),
             "bar" to TomlValue.List(
                 TomlValue.Map("bar" to TomlValue.Integer(3)),
-            )
+            ),
         )
 
         assertEquals(expected, TomlValue.from(expr))
@@ -51,9 +51,9 @@ class TableArrayTests : UnitTest {
         val expected = TomlValue.Map(
             "foo" to TomlValue.Map(
                 "bar" to TomlValue.List(
-                    TomlValue.Map("baz" to TomlValue.Integer(1))
-                )
-            )
+                    TomlValue.Map("baz" to TomlValue.Integer(1)),
+                ),
+            ),
         )
 
         assertEquals(expected, TomlValue.from(expr))
@@ -89,20 +89,20 @@ class TableArrayTests : UnitTest {
                     "name" to TomlValue.String("apple"),
                     "physical" to TomlValue.Map(
                         "color" to TomlValue.String("red"),
-                        "shape" to TomlValue.String("round")
+                        "shape" to TomlValue.String("round"),
                     ),
                     "varieties" to TomlValue.List(
                         TomlValue.Map("name" to TomlValue.String("red delicious")),
-                        TomlValue.Map("name" to TomlValue.String("granny smith"))
-                    )
+                        TomlValue.Map("name" to TomlValue.String("granny smith")),
+                    ),
                 ),
                 TomlValue.Map(
                     "name" to TomlValue.String("banana"),
                     "varieties" to TomlValue.List(
-                        TomlValue.Map("name" to TomlValue.String("plantain"))
-                    )
-                )
-            )
+                        TomlValue.Map("name" to TomlValue.String("plantain")),
+                    ),
+                ),
+            ),
         )
         assertEquals(expected, TomlValue.from(expr))
     }
@@ -121,9 +121,9 @@ class TableArrayTests : UnitTest {
             "foo" to TomlValue.Map(
                 "baz" to TomlValue.Integer(2),
                 "bar" to TomlValue.List(
-                    TomlValue.Map("baz" to TomlValue.Integer(1))
-                )
-            )
+                    TomlValue.Map("baz" to TomlValue.Integer(1)),
+                ),
+            ),
         )
 
         assertEquals(expected, TomlValue.from(expr))
@@ -149,11 +149,11 @@ class TableArrayTests : UnitTest {
                 ),
                 TomlValue.Map(
                     "bar" to TomlValue.Map(
-                        "baz" to TomlValue.String("qwe")
+                        "baz" to TomlValue.String("qwe"),
                     ),
                     "baz" to TomlValue.LocalDate(LocalDate.of(2011, 11, 11)),
-                )
-            )
+                ),
+            ),
         )
 
         assertEquals(expected, TomlValue.from(expr))
@@ -172,7 +172,7 @@ class TableArrayTests : UnitTest {
                 # INVALID: This table conflicts with the previous array of tables
                 [fruits.varieties]
                 name = "granny smith"
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -189,35 +189,35 @@ class TableArrayTests : UnitTest {
             """
                 foo = []
                 [[foo]]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
             """
                 [foo]
                 [[foo]]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
             """
                 [[foo]]
                 [foo]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
             """
                 foo = 123
                 [[foo]]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
             """
                 foo.bar = 1
                 [[foo]]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
@@ -225,7 +225,7 @@ class TableArrayTests : UnitTest {
                 [[foo.bar]]
                 [foo]
                 bar = 1
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
@@ -236,7 +236,7 @@ class TableArrayTests : UnitTest {
 
                 [[fruits.physical]]
                 color = "green"
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
@@ -248,7 +248,7 @@ class TableArrayTests : UnitTest {
                 [[fruit]]  # parser must throw an error upon discovering that "fruit" is
                            # an array rather than a table
                 name = "apple"
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 }

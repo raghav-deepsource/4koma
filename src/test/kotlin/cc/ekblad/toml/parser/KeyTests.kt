@@ -23,7 +23,7 @@ class KeyTests : StringTest {
     fun `can parse dotted quoted keys`() {
         val actual = TomlValue.from("'a'.\"b\" = 'c'")
         val expected = TomlValue.Map(
-            "a" to TomlValue.Map("b" to TomlValue.String("c"))
+            "a" to TomlValue.Map("b" to TomlValue.String("c")),
         )
         assertEquals(expected, actual)
     }
@@ -32,7 +32,7 @@ class KeyTests : StringTest {
     fun `can parse float-looking keys`() {
         val actual = TomlValue.from("3.14 = 'pi'")
         val expected = TomlValue.Map(
-            "3" to TomlValue.Map("14" to TomlValue.String("pi"))
+            "3" to TomlValue.Map("14" to TomlValue.String("pi")),
         )
         assertEquals(expected, actual)
     }
@@ -41,11 +41,11 @@ class KeyTests : StringTest {
     fun `can parse key containing quotes`() {
         assertEquals(
             TomlValue.Map("'hello'" to TomlValue.String("world")),
-            TomlValue.from("\"'hello'\" = 'world'")
+            TomlValue.from("\"'hello'\" = 'world'"),
         )
         assertEquals(
             TomlValue.Map("\"hello\"" to TomlValue.String("world")),
-            TomlValue.from("'\"hello\"' = 'world'")
+            TomlValue.from("'\"hello\"' = 'world'"),
         )
     }
 
@@ -54,7 +54,7 @@ class KeyTests : StringTest {
         escapeCodeSamples.assertAll { (string, expected) ->
             assertEquals(
                 TomlValue.Map(expected to TomlValue.String("world")),
-                TomlValue.from("\"$string\" = 'world'")
+                TomlValue.from("\"$string\" = 'world'"),
             )
         }
     }
@@ -63,7 +63,7 @@ class KeyTests : StringTest {
     fun `escape codes are not converted in single quoted keys`() {
         assertEquals(
             TomlValue.Map("\\nhello\\t" to TomlValue.String("world")),
-            TomlValue.from("'\\nhello\\t' = 'world'")
+            TomlValue.from("'\\nhello\\t' = 'world'"),
         )
     }
 
@@ -71,11 +71,11 @@ class KeyTests : StringTest {
     fun `can parse blank quoted keys`() {
         assertEquals(
             TomlValue.Map("" to TomlValue.String("world")),
-            TomlValue.from("\"\" = 'world'")
+            TomlValue.from("\"\" = 'world'"),
         )
         assertEquals(
             TomlValue.Map("" to TomlValue.String("world")),
-            TomlValue.from("'' = 'world'")
+            TomlValue.from("'' = 'world'"),
         )
     }
 

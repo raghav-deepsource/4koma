@@ -34,8 +34,8 @@ class TraversalTests {
         data class Bar(val baz: Int)
         val toml = TomlValue.Map(
             "foo" to TomlValue.Map(
-                "bar" to TomlValue.Map("baz" to TomlValue.Integer(123))
-            )
+                "bar" to TomlValue.Map("baz" to TomlValue.Integer(123)),
+            ),
         )
         assertEquals(Bar(123), toml.get(mapper, "foo", "bar"))
     }
@@ -44,8 +44,8 @@ class TraversalTests {
     fun `trying to get nonexistent path yields null`() {
         val toml = TomlValue.Map(
             "foo" to TomlValue.Map(
-                "bar" to TomlValue.Map("baz" to TomlValue.Integer(123))
-            )
+                "bar" to TomlValue.Map("baz" to TomlValue.Integer(123)),
+            ),
         )
         assertEquals(null, toml.get<Any>(mapper, "foo", "bar", "nope"))
         assertEquals(null, toml.get<Any>(mapper, "foo", "barbar", "baz"))
@@ -56,8 +56,8 @@ class TraversalTests {
     fun `can get list`() {
         val toml = TomlValue.Map(
             "foo" to TomlValue.Map(
-                "bar" to TomlValue.List(TomlValue.String("baz"), TomlValue.String("quux"))
-            )
+                "bar" to TomlValue.List(TomlValue.String("baz"), TomlValue.String("quux")),
+            ),
         )
         assertEquals(listOf("baz", "quux"), toml.get(mapper, "foo", "bar"))
     }
@@ -68,9 +68,9 @@ class TraversalTests {
             "foo" to TomlValue.List(
                 TomlValue.List(
                     TomlValue.String("baz"),
-                    TomlValue.String("quux")
-                )
-            )
+                    TomlValue.String("quux"),
+                ),
+            ),
         )
         assertFailsWith<TomlException.DecodingError.IllegalListTargetType> { toml.get<String>(mapper, "foo") }
     }
@@ -79,8 +79,8 @@ class TraversalTests {
     fun `trying to get a list with ill-typed elements yields a decoding error`() {
         val toml = TomlValue.Map(
             "foo" to TomlValue.Map(
-                "bar" to TomlValue.List(TomlValue.String("baz"), TomlValue.Integer(1))
-            )
+                "bar" to TomlValue.List(TomlValue.String("baz"), TomlValue.Integer(1)),
+            ),
         )
         assertFailsWith<TomlException.DecodingError.NoSuchDecoder> { toml.get<List<Int>>(mapper, "foo", "bar") }
     }
@@ -91,13 +91,13 @@ class TraversalTests {
             "foo" to TomlValue.List(
                 TomlValue.Map(
                     "a" to TomlValue.String("baz"),
-                    "b" to TomlValue.String("quux")
+                    "b" to TomlValue.String("quux"),
                 ),
                 TomlValue.Map(
                     "a" to TomlValue.String("hello"),
-                    "c" to TomlValue.String("world")
+                    "c" to TomlValue.String("world"),
                 ),
-            )
+            ),
         )
         assertEquals(listOf("baz", "hello"), toml.get(mapper, "foo", "a"))
         assertEquals(listOf("quux"), toml.get(mapper, "foo", "b"))
@@ -111,9 +111,9 @@ class TraversalTests {
                 TomlValue.String("c-c-c-combo breaker!"),
                 TomlValue.Map(
                     "a" to TomlValue.String("hello"),
-                    "c" to TomlValue.String("world")
+                    "c" to TomlValue.String("world"),
                 ),
-            )
+            ),
         )
         assertEquals(listOf("hello"), toml.get(mapper, "foo", "a"))
         assertEquals(emptyList<Any>(), toml.get(mapper, "foo", "b"))
@@ -127,20 +127,20 @@ class TraversalTests {
                 TomlValue.List(
                     TomlValue.Map(
                         "a" to TomlValue.String("first"),
-                        "b" to TomlValue.String("second")
-                    )
+                        "b" to TomlValue.String("second"),
+                    ),
                 ),
                 TomlValue.List(
                     TomlValue.Map(
                         "a" to TomlValue.String("baz"),
-                        "b" to TomlValue.String("quux")
+                        "b" to TomlValue.String("quux"),
                     ),
                     TomlValue.Map(
                         "a" to TomlValue.String("hello"),
-                        "c" to TomlValue.String("world")
+                        "c" to TomlValue.String("world"),
                     ),
-                )
-            )
+                ),
+            ),
         )
 
         // Grouped

@@ -15,7 +15,7 @@ sealed class TomlException : RuntimeException() {
     data class ParseError(
         val errorDescription: String,
         val line: Int,
-        override val cause: Throwable?
+        override val cause: Throwable?,
     ) : TomlException() {
         constructor(errorDescription: String, line: Int) : this(errorDescription, line, null)
 
@@ -33,7 +33,7 @@ sealed class TomlException : RuntimeException() {
          */
         class NotAMap(sourceValue: Any, val tomlValue: TomlValue) : SerializationError(
             "Class '${sourceValue.javaClass.name}' encoded to a non-map TOML value, which is not serializable.",
-            sourceValue
+            sourceValue,
         )
 
         /**
@@ -42,7 +42,7 @@ sealed class TomlException : RuntimeException() {
         class InvalidString(sourceValue: String, val invalidChars: Set<Char>) : SerializationError(
             "String contains characters which are not allowed in a TOML document: " +
                 "'${invalidChars.joinToString(", ") { "\\u${it.code.toString(16)}" }}'.",
-            sourceValue
+            sourceValue,
         )
     }
 
@@ -52,7 +52,7 @@ sealed class TomlException : RuntimeException() {
     sealed class DecodingError(
         val reason: String,
         val sourceValue: TomlValue,
-        val targetType: KType
+        val targetType: KType,
     ) : TomlException() {
         /**
          * Thrown when there is no decoder registered that can convert [sourceValue] into a Kotlin value of
@@ -61,7 +61,7 @@ sealed class TomlException : RuntimeException() {
         class NoSuchDecoder(sourceValue: TomlValue, targetType: KType) : DecodingError(
             "No decoder registered for value/target pair.",
             sourceValue,
-            targetType
+            targetType,
         )
 
         /**
@@ -71,7 +71,7 @@ sealed class TomlException : RuntimeException() {
         class InvalidEnumValue(tomlString: TomlValue.String, targetType: KType) : DecodingError(
             "'${tomlString.value}' is not a constructor of enum class '${targetType.javaType.typeName}'.",
             tomlString,
-            targetType
+            targetType,
         )
 
         /**
@@ -81,7 +81,7 @@ sealed class TomlException : RuntimeException() {
             "Lists can only be decoded into lists, sets, collections, iterables, " +
                 "or types for which a custom decoder function has been registered.",
             tomlList,
-            target
+            target,
         )
 
         /**
@@ -91,7 +91,7 @@ sealed class TomlException : RuntimeException() {
             "Objects can only be decoded into maps, data classes, " +
                 "or types for which a custom decoder function has been registered.",
             tomlMap,
-            target
+            target,
         )
 
         /**
@@ -101,7 +101,7 @@ sealed class TomlException : RuntimeException() {
             "Tried to decode object into map with illegal key type " +
                 "'${targetMapType.javaType.typeName}'. Key type must be String or Any.",
             tomlMap,
-            targetMapType
+            targetMapType,
         )
 
         /**
@@ -111,7 +111,7 @@ sealed class TomlException : RuntimeException() {
         class MissingNonNullableValue(val parameter: KParameter, tomlMap: TomlValue.Map, kType: KType) : DecodingError(
             "No value found for non-nullable parameter '${parameter.name}'.",
             tomlMap,
-            kType
+            kType,
         )
 
         @OptIn(ExperimentalStdlibApi::class)
@@ -127,14 +127,14 @@ sealed class TomlException : RuntimeException() {
      */
     sealed class EncodingError(
         val reason: String,
-        val sourceValue: Any
+        val sourceValue: Any,
     ) : TomlException() {
         /**
          * Thrown when attempting to encode a type for which no encoder is registered.
          */
         class NoSuchEncoder(sourceValue: Any) : EncodingError(
             "No encoder registered for type.",
-            sourceValue
+            sourceValue,
         )
 
         /**
@@ -142,7 +142,7 @@ sealed class TomlException : RuntimeException() {
          */
         class LazyValueEvaluatedToNull(sourceValue: Lazy<*>) : EncodingError(
             "Lazy values must not evaluate to null.",
-            sourceValue
+            sourceValue,
         )
         override val message: String
             get() = "TOML encoding error: unable to encode '$sourceValue' into a TOML value. $reason"
@@ -156,7 +156,7 @@ sealed class TomlException : RuntimeException() {
     data class AccessError(
         val name: String,
         val tomlName: String,
-        override val cause: Throwable?
+        override val cause: Throwable?,
     ) : TomlException() {
         override val message: String
             get() = "Cannot access constructor property: '$name' mapped from '$tomlName'"

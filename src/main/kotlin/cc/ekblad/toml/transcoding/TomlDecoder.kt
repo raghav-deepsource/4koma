@@ -23,7 +23,7 @@ import kotlin.reflect.jvm.isAccessible
 class TomlDecoder internal constructor(
     internal val decoders: Map<KClass<*>, List<TomlDecoder.(KType, TomlValue) -> Any?>>,
     internal val mappings: Map<KClass<*>, Map<KotlinName, TomlName>>,
-    internal val defaultValues: Map<KClass<*>, Any>
+    internal val defaultValues: Map<KClass<*>, Any>,
 ) {
     /**
      * Thrown by a TOML decoder function to indicate that it can't decode the given TOML into its target type and that
@@ -136,7 +136,7 @@ private fun TomlDecoder.toMap(value: TomlValue.Map, targetMapType: KType): Map<S
 private fun <T : Any> TomlDecoder.toDataClass(
     tomlMap: TomlValue.Map,
     kType: KType,
-    kClass: KClass<*>
+    kClass: KClass<*>,
 ): T {
     val constructor = kClass.primaryConstructor!!
     val tomlNamesByParameterName = mappingFor(kClass)

@@ -16,7 +16,7 @@ internal class TomlErrorListener : ANTLRErrorListener {
         line: Int,
         charPositionInLine: Int,
         msg: String,
-        e: RecognitionException?
+        e: RecognitionException?,
     ) {
         throw TomlException.ParseError(msg, line, e)
     }
@@ -28,7 +28,7 @@ internal class TomlErrorListener : ANTLRErrorListener {
         stopIndex: Int,
         exact: Boolean,
         ambigAlts: BitSet?,
-        configs: ATNConfigSet?
+        configs: ATNConfigSet?,
     ) {
     }
 
@@ -38,7 +38,7 @@ internal class TomlErrorListener : ANTLRErrorListener {
         startIndex: Int,
         stopIndex: Int,
         conflictingAlts: BitSet?,
-        configs: ATNConfigSet?
+        configs: ATNConfigSet?,
     ) {
     }
 
@@ -48,7 +48,7 @@ internal class TomlErrorListener : ANTLRErrorListener {
         startIndex: Int,
         stopIndex: Int,
         prediction: Int,
-        configs: ATNConfigSet?
+        configs: ATNConfigSet?,
     ) {
     }
 }

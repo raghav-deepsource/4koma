@@ -71,7 +71,7 @@ private tailrec fun TomlValue.get(path: List<String>): TomlValue? = when {
 private fun TomlValue.flatten(targetType: KType): TomlValue = when {
     this.isNestedList() && !targetType.elementType.isListType() ->
         TomlValue.List(
-            (this as TomlValue.List).elements.map { (it.flatten(targetType) as TomlValue.List).elements }.flatten()
+            (this as TomlValue.List).elements.map { (it.flatten(targetType) as TomlValue.List).elements }.flatten(),
         )
     else ->
         this
