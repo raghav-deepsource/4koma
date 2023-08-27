@@ -35,7 +35,7 @@ class BuiltinEncoderTests : UnitTest {
         assertEncodesTo(lazy { listOf(PublicEnum.Bar) }, TomlValue.List(TomlValue.String("Bar")))
         assertEncodesTo(
             lazy { Foo(123, "hello") },
-            TomlValue.Map("foo" to TomlValue.Integer(123), "bar" to TomlValue.String("hello"))
+            TomlValue.Map("foo" to TomlValue.Integer(123), "bar" to TomlValue.String("hello")),
         )
     }
 
@@ -103,7 +103,7 @@ class BuiltinEncoderTests : UnitTest {
     fun `can encode simple lists`() {
         assertEncodesTo(
             listOf(1, 2, 3),
-            TomlValue.List(TomlValue.Integer(1), TomlValue.Integer(2), TomlValue.Integer(3))
+            TomlValue.List(TomlValue.Integer(1), TomlValue.Integer(2), TomlValue.Integer(3)),
         )
     }
 
@@ -113,8 +113,8 @@ class BuiltinEncoderTests : UnitTest {
             listOf(listOf(1), listOf(2, 3)),
             TomlValue.List(
                 TomlValue.List(TomlValue.Integer(1)),
-                TomlValue.List(TomlValue.Integer(2), TomlValue.Integer(3))
-            )
+                TomlValue.List(TomlValue.Integer(2), TomlValue.Integer(3)),
+            ),
         )
     }
 
@@ -125,8 +125,8 @@ class BuiltinEncoderTests : UnitTest {
             TomlValue.List(
                 TomlValue.List(TomlValue.Integer(1)),
                 TomlValue.Integer(2),
-                TomlValue.Integer(3)
-            )
+                TomlValue.Integer(3),
+            ),
         )
     }
 
@@ -134,7 +134,7 @@ class BuiltinEncoderTests : UnitTest {
     fun `null values in lists are ignored`() {
         assertEncodesTo(
             listOf(1, null, 2),
-            TomlValue.List(TomlValue.Integer(1), TomlValue.Integer(2))
+            TomlValue.List(TomlValue.Integer(1), TomlValue.Integer(2)),
         )
     }
 
@@ -142,7 +142,7 @@ class BuiltinEncoderTests : UnitTest {
     fun `can encode empty lists`() {
         assertEncodesTo(
             emptyList<Nothing>(),
-            TomlValue.List()
+            TomlValue.List(),
         )
     }
 
@@ -152,10 +152,10 @@ class BuiltinEncoderTests : UnitTest {
             mapOf(
                 "foo" to mapOf(
                     "bar" to 123,
-                    "baz" to 0.5
+                    "baz" to 0.5,
                 ),
                 "bar" to emptyList<LocalDateTime>(),
-                "baz" to setOf("hello", "world")
+                "baz" to setOf("hello", "world"),
             ),
             TomlValue.Map(
                 "foo" to TomlValue.Map(
@@ -163,13 +163,13 @@ class BuiltinEncoderTests : UnitTest {
                     "baz" to TomlValue.Double(0.5),
                 ),
                 "bar" to TomlValue.List(),
-                "baz" to TomlValue.List(TomlValue.String("hello"), TomlValue.String("world"))
-            )
+                "baz" to TomlValue.List(TomlValue.String("hello"), TomlValue.String("world")),
+            ),
         )
     }
 
-    @Test
     // Kotlin's reflection apparently can't cope with nested classes with spaces in their path ¯\_(ツ)_/¯
+    @Test
     fun can_encode_data_classes() {
         data class Foo(val foo: Foo?, val bar: String, val baz: List<Int>, val foos: Collection<Foo>)
         assertEncodesTo(
@@ -183,11 +183,11 @@ class BuiltinEncoderTests : UnitTest {
                         "outer list",
                         emptyList(),
                         mutableSetOf(
-                            Foo(null, "nope", listOf(1), emptySet())
-                        )
+                            Foo(null, "nope", listOf(1), emptySet()),
+                        ),
                     ),
-                    Foo(null, "empty", emptyList(), emptyList())
-                )
+                    Foo(null, "empty", emptyList(), emptyList()),
+                ),
             ),
             TomlValue.Map(
                 "foo" to TomlValue.Map(
@@ -195,9 +195,9 @@ class BuiltinEncoderTests : UnitTest {
                     "baz" to TomlValue.List(
                         TomlValue.Integer(1),
                         TomlValue.Integer(2),
-                        TomlValue.Integer(3)
+                        TomlValue.Integer(3),
                     ),
-                    "foos" to TomlValue.List()
+                    "foos" to TomlValue.List(),
                 ),
                 "bar" to TomlValue.String("outer"),
                 "baz" to TomlValue.List(TomlValue.Integer(4), TomlValue.Integer(2)),
@@ -209,17 +209,17 @@ class BuiltinEncoderTests : UnitTest {
                             TomlValue.Map(
                                 "bar" to TomlValue.String("nope"),
                                 "baz" to TomlValue.List(TomlValue.Integer(1)),
-                                "foos" to TomlValue.List()
-                            )
-                        )
+                                "foos" to TomlValue.List(),
+                            ),
+                        ),
                     ),
                     TomlValue.Map(
                         "bar" to TomlValue.String("empty"),
                         "baz" to TomlValue.List(),
-                        "foos" to TomlValue.List()
+                        "foos" to TomlValue.List(),
                     ),
                 ),
-            )
+            ),
         )
     }
 
@@ -233,7 +233,7 @@ class BuiltinEncoderTests : UnitTest {
             TomlValue.Map(
                 "foo" to TomlValue.Integer(1),
                 "bar" to TomlValue.String("text"),
-            )
+            ),
         )
     }
 
@@ -259,7 +259,7 @@ class BuiltinEncoderTests : UnitTest {
     fun `null values in maps are ignored`() {
         assertEncodesTo(
             mapOf("foo" to null, "bar" to "not null"),
-            TomlValue.Map("bar" to TomlValue.String("not null"))
+            TomlValue.Map("bar" to TomlValue.String("not null")),
         )
     }
 

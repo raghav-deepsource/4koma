@@ -27,17 +27,17 @@ class TomlMapperExtensionTests : UnitTest {
         str = "a string",
         obj = TestObj(
             xs = listOf("foo", "bar"),
-            bool = true
+            bool = true,
         ),
-        int = null
+        int = null,
     )
     private val testDocumentDefaults = TestDocument(
         str = "",
         obj = TestObj(
             xs = emptyList(),
-            bool = true
+            bool = true,
         ),
-        int = null
+        int = null,
     )
     private val mapper = tomlMapper { }
 
@@ -64,11 +64,11 @@ class TomlMapperExtensionTests : UnitTest {
 
         assertEquals(
             testDocument,
-            mapper.decode(string)
+            mapper.decode(string),
         )
         assertEquals(
             testDocument,
-            mapper.decodeWithDefaults(testDocumentDefaults, string)
+            mapper.decodeWithDefaults(testDocumentDefaults, string),
         )
     }
 
@@ -78,11 +78,11 @@ class TomlMapperExtensionTests : UnitTest {
 
         assertEquals(
             testDocument,
-            mapper.decode(string)
+            mapper.decode(string),
         )
         assertEquals(
             testDocument,
-            mapper.decodeWithDefaults(testDocumentDefaults, string)
+            mapper.decodeWithDefaults(testDocumentDefaults, string),
         )
     }
 
@@ -94,11 +94,11 @@ class TomlMapperExtensionTests : UnitTest {
 
         assertEquals(
             testDocument,
-            mapper.decode(ByteArrayInputStream(bytes))
+            mapper.decode(ByteArrayInputStream(bytes)),
         )
         assertEquals(
             testDocument,
-            mapper.decodeWithDefaults(testDocumentDefaults, ByteArrayInputStream(bytes))
+            mapper.decodeWithDefaults(testDocumentDefaults, ByteArrayInputStream(bytes)),
         )
     }
 
@@ -110,11 +110,11 @@ class TomlMapperExtensionTests : UnitTest {
 
             assertEquals(
                 testDocument,
-                mapper.decode(path)
+                mapper.decode(path),
             )
             assertEquals(
                 testDocument,
-                mapper.decodeWithDefaults(testDocumentDefaults, path)
+                mapper.decodeWithDefaults(testDocumentDefaults, path),
             )
         } finally {
             path.deleteIfExists()

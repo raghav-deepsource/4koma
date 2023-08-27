@@ -136,7 +136,7 @@ class BuiltinDecoderTests : StringTest {
             17,
             1.77,
             null,
-            Person("Anakin", 39, 2.11, null, null)
+            Person("Anakin", 39, 2.11, null, null),
         )
         val toml = """
             name = 'Luke'
@@ -151,7 +151,7 @@ class BuiltinDecoderTests : StringTest {
 
         assertEquals(
             expected,
-            mapper.decode(TomlValue.from(toml))
+            mapper.decode(TomlValue.from(toml)),
         )
     }
 
@@ -199,7 +199,7 @@ class BuiltinDecoderTests : StringTest {
         """.trimIndent()
         assertEquals(
             expected,
-            mapper.decode(TomlValue.from(toml))
+            mapper.decode(TomlValue.from(toml)),
         )
     }
 
@@ -234,7 +234,7 @@ class BuiltinDecoderTests : StringTest {
         """.trimIndent()
         assertEquals(
             expected,
-            mapper.decode(TomlValue.from(toml))
+            mapper.decode(TomlValue.from(toml)),
         )
     }
 
@@ -243,11 +243,11 @@ class BuiltinDecoderTests : StringTest {
         listOf(
             typeOf<Map<String, String>>() to mapOf("hello" to "hello"),
             typeOf<MutableMap<String, String>>() to mutableMapOf("hello" to "hello"),
-            typeOf<SortedMap<String, String>>() to sortedMapOf("hello" to "hello")
+            typeOf<SortedMap<String, String>>() to sortedMapOf("hello" to "hello"),
         ).assertAll { (kType, it) ->
             assertEquals(
                 it,
-                mapper.decode(kType, TomlValue.Map("hello" to TomlValue.String("hello")))
+                mapper.decode(kType, TomlValue.Map("hello" to TomlValue.String("hello"))),
             )
         }
     }
@@ -259,7 +259,7 @@ class BuiltinDecoderTests : StringTest {
             typeOf<List<Long>>() to listOf(1L, 2L),
             typeOf<MutableList<Int>>() to mutableListOf(1, 2),
             typeOf<Collection<Double>>() to listOf(1.0, 2.0),
-            typeOf<Iterable<BigInteger>>() to listOf(BigInteger.valueOf(1), BigInteger.valueOf(2)).asIterable()
+            typeOf<Iterable<BigInteger>>() to listOf(BigInteger.valueOf(1), BigInteger.valueOf(2)).asIterable(),
         ).assertAll { (kType, it) ->
             assertEquals(
                 it,
@@ -268,8 +268,8 @@ class BuiltinDecoderTests : StringTest {
                     TomlValue.List(
                         TomlValue.Integer(1),
                         TomlValue.Integer(2),
-                    )
-                )
+                    ),
+                ),
             )
         }
     }
@@ -280,7 +280,7 @@ class BuiltinDecoderTests : StringTest {
             typeOf<List<*>>() to listOf(1L, 2L),
             typeOf<MutableList<*>>() to mutableListOf(1L, 2L),
             typeOf<Collection<*>>() to listOf(1L, 2L),
-            typeOf<Iterable<*>>() to listOf(1L, 2L).asIterable()
+            typeOf<Iterable<*>>() to listOf(1L, 2L).asIterable(),
         ).assertAll { (kType, it) ->
             assertEquals(
                 it,
@@ -289,8 +289,8 @@ class BuiltinDecoderTests : StringTest {
                     TomlValue.List(
                         TomlValue.Integer(1),
                         TomlValue.Integer(2),
-                    )
-                )
+                    ),
+                ),
             )
         }
     }
@@ -300,11 +300,11 @@ class BuiltinDecoderTests : StringTest {
         listOf(
             typeOf<Map<*, *>>() to mapOf("hello" to "hello"),
             typeOf<MutableMap<*, *>>() to mutableMapOf("hello" to "hello"),
-            typeOf<SortedMap<*, *>>() to sortedMapOf("hello" to "hello")
+            typeOf<SortedMap<*, *>>() to sortedMapOf("hello" to "hello"),
         ).assertAll { (kType, it) ->
             assertEquals(
                 it,
-                mapper.decode(kType, TomlValue.Map("hello" to TomlValue.String("hello")))
+                mapper.decode(kType, TomlValue.Map("hello" to TomlValue.String("hello"))),
             )
         }
     }
@@ -317,8 +317,8 @@ class BuiltinDecoderTests : StringTest {
                 TomlValue.List(
                     TomlValue.Integer(1),
                     TomlValue.Integer(2),
-                )
-            )
+                ),
+            ),
         )
     }
 
@@ -336,8 +336,8 @@ class BuiltinDecoderTests : StringTest {
                     TomlValue.List(
                         TomlValue.String("jkl"),
                     ),
-                )
-            )
+                ),
+            ),
         )
     }
 
@@ -353,17 +353,17 @@ class BuiltinDecoderTests : StringTest {
             TomlValue.LocalDateTime(
                 LocalDateTime.of(
                     LocalDate.of(2011, 11, 11),
-                    LocalTime.of(11, 11)
-                )
+                    LocalTime.of(11, 11),
+                ),
             ) to LocalDateTime.of(LocalDate.of(2011, 11, 11), LocalTime.of(11, 11)),
             TomlValue.OffsetDateTime(
                 OffsetDateTime.of(
                     LocalDateTime.of(
                         LocalDate.of(2011, 11, 11),
-                        LocalTime.of(11, 11)
+                        LocalTime.of(11, 11),
                     ),
-                    ZoneOffset.UTC
-                )
+                    ZoneOffset.UTC,
+                ),
             ) to OffsetDateTime.of(LocalDateTime.of(LocalDate.of(2011, 11, 11), LocalTime.of(11, 11)), ZoneOffset.UTC),
             TomlValue.List(TomlValue.Bool(true)) to listOf(true),
             TomlValue.Map("hello" to TomlValue.String("hello")) to mapOf("hello" to "hello"),
@@ -445,7 +445,7 @@ class BuiltinDecoderTests : StringTest {
             TomlValue.LocalDateTime(LocalDateTime.of(2020, 1, 2, 23, 12, 43)),
             TomlValue.OffsetDateTime(OffsetDateTime.of(2020, 1, 2, 23, 12, 43, 0, ZoneOffset.UTC)),
             TomlValue.Map("hello" to TomlValue.Bool(false)),
-            TomlValue.List(TomlValue.Bool(true))
+            TomlValue.List(TomlValue.Bool(true)),
         )
         values.assertAll {
             assertEquals(it, mapper.decode(typeOf<TomlValue>(), it))
@@ -462,7 +462,7 @@ class BuiltinDecoderTests : StringTest {
                 TomlValue.Double(it.toDouble())
                     .let { mapper.decode<BigDecimal>(it) }
                     .minus(BigDecimal(it.toDouble()))
-                    .abs() < BigDecimal(0.00001)
+                    .abs() < BigDecimal(0.00001),
             )
         }
     }
@@ -471,19 +471,19 @@ class BuiltinDecoderTests : StringTest {
     fun `can decode atomic values with default`() {
         assertEquals(
             "correct",
-            mapper.decodeWithDefaults("wrong", TomlValue.String("correct"))
+            mapper.decodeWithDefaults("wrong", TomlValue.String("correct")),
         )
         assertEquals(
             listOf("correct"),
-            mapper.decodeWithDefaults(listOf("wrong"), TomlValue.List(TomlValue.String("correct")))
+            mapper.decodeWithDefaults(listOf("wrong"), TomlValue.List(TomlValue.String("correct"))),
         )
         assertEquals(
             listOf("correct"),
-            mapper.decodeWithDefaults(emptyList(), TomlValue.List(TomlValue.String("correct")))
+            mapper.decodeWithDefaults(emptyList(), TomlValue.List(TomlValue.String("correct"))),
         )
         assertEquals(
             emptyList(),
-            mapper.decodeWithDefaults(listOf("wrong"), TomlValue.List())
+            mapper.decodeWithDefaults(listOf("wrong"), TomlValue.List()),
         )
     }
 
@@ -491,7 +491,7 @@ class BuiltinDecoderTests : StringTest {
     fun `can decode null values with default`() {
         assertEquals(
             "correct",
-            mapper.decodeWithDefaults<String?>(null, TomlValue.String("correct"))
+            mapper.decodeWithDefaults<String?>(null, TomlValue.String("correct")),
         )
 
         val nullMapper = tomlMapper {
@@ -499,7 +499,7 @@ class BuiltinDecoderTests : StringTest {
         }
         assertEquals(
             null,
-            nullMapper.decodeWithDefaults<String?>("wrong", TomlValue.String("ignored"))
+            nullMapper.decodeWithDefaults<String?>("wrong", TomlValue.String("ignored")),
         )
     }
 
@@ -508,11 +508,11 @@ class BuiltinDecoderTests : StringTest {
         data class Foo(val a: Int, val b: String)
         val toml = TomlValue.Map(
             "a" to TomlValue.Integer(123),
-            "b" to TomlValue.String("hej")
+            "b" to TomlValue.String("hej"),
         )
         assertEquals(
             Foo(123, "hej"),
-            mapper.decodeWithDefaults(Foo(0, ""), toml)
+            mapper.decodeWithDefaults(Foo(0, ""), toml),
         )
     }
 
@@ -524,11 +524,11 @@ class BuiltinDecoderTests : StringTest {
         )
         assertEquals(
             Foo(123, "defaulted"),
-            mapper.decodeWithDefaults(Foo(0, "defaulted"), toml)
+            mapper.decodeWithDefaults(Foo(0, "defaulted"), toml),
         )
         assertEquals(
             Foo(0, "defaulted"),
-            mapper.decodeWithDefaults(Foo(0, "defaulted"), TomlValue.Map())
+            mapper.decodeWithDefaults(Foo(0, "defaulted"), TomlValue.Map()),
         )
     }
 
@@ -538,13 +538,13 @@ class BuiltinDecoderTests : StringTest {
         data class Bar(val x: Foo, val y: Int)
         val toml = TomlValue.Map(
             "x" to TomlValue.Map(
-                "a" to TomlValue.Integer(123)
+                "a" to TomlValue.Integer(123),
             ),
             "y" to TomlValue.Integer(321),
         )
         assertEquals(
             Bar(Foo(123, "defaulted"), 321),
-            mapper.decodeWithDefaults(Bar(Foo(0, "defaulted"), 0), toml)
+            mapper.decodeWithDefaults(Bar(Foo(0, "defaulted"), 0), toml),
         )
     }
 
@@ -561,11 +561,11 @@ class BuiltinDecoderTests : StringTest {
         )
         assertEquals(
             Bar(Foo(0, "defaulted"), 321),
-            mapper.decodeWithDefaults(Bar(Foo(0, "defaulted"), 0), tomlWithoutFoo)
+            mapper.decodeWithDefaults(Bar(Foo(0, "defaulted"), 0), tomlWithoutFoo),
         )
         assertEquals(
             Bar(Foo(0, "defaulted"), 321),
-            mapper.decodeWithDefaults(Bar(Foo(0, "defaulted"), 0), tomlWithEmptyFoo)
+            mapper.decodeWithDefaults(Bar(Foo(0, "defaulted"), 0), tomlWithEmptyFoo),
         )
     }
 
@@ -579,10 +579,10 @@ class BuiltinDecoderTests : StringTest {
         assertEquals(
             nullMapper.decode(
                 TomlValue.Map(
-                    "i" to TomlValue.Integer(123)
-                )
+                    "i" to TomlValue.Integer(123),
+                ),
             ),
-            Foo(null)
+            Foo(null),
         )
     }
 
@@ -596,8 +596,8 @@ class BuiltinDecoderTests : StringTest {
         assertFails {
             nullMapper.decode<Foo>(
                 TomlValue.Map(
-                    "i" to TomlValue.Integer(123)
-                )
+                    "i" to TomlValue.Integer(123),
+                ),
             )
         }
     }
@@ -610,11 +610,11 @@ class BuiltinDecoderTests : StringTest {
         )
         assertEquals(
             Foo(123, "default"),
-            mapper.decode(toml)
+            mapper.decode(toml),
         )
         assertEquals(
             Foo(1, "default"),
-            mapper.decode(TomlValue.Map())
+            mapper.decode(TomlValue.Map()),
         )
     }
 
@@ -624,13 +624,13 @@ class BuiltinDecoderTests : StringTest {
         data class Bar(val x: Foo = Foo(), val y: Int = 0)
         val toml = TomlValue.Map(
             "x" to TomlValue.Map(
-                "a" to TomlValue.Integer(123)
+                "a" to TomlValue.Integer(123),
             ),
             "y" to TomlValue.Integer(321),
         )
         assertEquals(
             Bar(Foo(123, "defaulted"), 321),
-            mapper.decode(toml)
+            mapper.decode(toml),
         )
     }
 
@@ -642,11 +642,11 @@ class BuiltinDecoderTests : StringTest {
         )
         assertEquals(
             Foo(123, "defaulted"),
-            mapper.decodeWithDefaults(Foo(0, "defaulted"), toml)
+            mapper.decodeWithDefaults(Foo(0, "defaulted"), toml),
         )
         assertEquals(
             Foo(0, "defaulted"),
-            mapper.decodeWithDefaults(Foo(0, "defaulted"), TomlValue.Map())
+            mapper.decodeWithDefaults(Foo(0, "defaulted"), TomlValue.Map()),
         )
     }
 
@@ -661,11 +661,11 @@ class BuiltinDecoderTests : StringTest {
         }
         assertEquals(
             Foo(null),
-            nullMapper.decode(toml)
+            nullMapper.decode(toml),
         )
         assertEquals(
             Foo(1),
-            nullMapper.decode(TomlValue.Map())
+            nullMapper.decode(TomlValue.Map()),
         )
     }
 
@@ -680,11 +680,11 @@ class BuiltinDecoderTests : StringTest {
                     "y" to TomlValue.Map(
                         "x" to TomlValue.Integer(2),
                         "y" to TomlValue.Map(
-                            "x" to TomlValue.Integer(3)
-                        )
-                    )
-                )
-            )
+                            "x" to TomlValue.Integer(3),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 
@@ -697,8 +697,8 @@ class BuiltinDecoderTests : StringTest {
                 1,
                 listOf(
                     Foo(2, "two", emptyList()),
-                    Foo(3, "three", listOf(Foo("four", 4, emptyList())))
-                )
+                    Foo(3, "three", listOf(Foo("four", 4, emptyList()))),
+                ),
             ),
             mapper.decode(
                 TomlValue.Map(
@@ -708,7 +708,7 @@ class BuiltinDecoderTests : StringTest {
                         TomlValue.Map(
                             "x" to TomlValue.Integer(2),
                             "y" to TomlValue.String("two"),
-                            "z" to TomlValue.List()
+                            "z" to TomlValue.List(),
                         ),
                         TomlValue.Map(
                             "x" to TomlValue.Integer(3),
@@ -717,13 +717,13 @@ class BuiltinDecoderTests : StringTest {
                                 TomlValue.Map(
                                     "x" to TomlValue.String("four"),
                                     "y" to TomlValue.Integer(4),
-                                    "z" to TomlValue.List()
-                                )
-                            )
-                        )
-                    )
-                )
-            )
+                                    "z" to TomlValue.List(),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
     }
 
@@ -733,21 +733,21 @@ class BuiltinDecoderTests : StringTest {
         data class Bar(val int: Int?, val list: List<String>)
         assertEquals(
             "hello",
-            mapper.decode<Foo<String>>(TomlValue.Map("x" to TomlValue.String("hello"))).x.value
+            mapper.decode<Foo<String>>(TomlValue.Map("x" to TomlValue.String("hello"))).x.value,
         )
         assertEquals(
             PublicEnum.Bar,
-            mapper.decode<Foo<PublicEnum>>(TomlValue.Map("x" to TomlValue.String("Bar"))).x.value
+            mapper.decode<Foo<PublicEnum>>(TomlValue.Map("x" to TomlValue.String("Bar"))).x.value,
         )
         assertEquals(
             Bar(null, listOf("hello", "hi")),
             mapper.decode<Foo<Bar>>(
                 TomlValue.Map(
                     "x" to TomlValue.Map(
-                        "list" to TomlValue.List(TomlValue.String("hello"), TomlValue.String("hi"))
-                    )
-                )
-            ).x.value
+                        "list" to TomlValue.List(TomlValue.String("hello"), TomlValue.String("hi")),
+                    ),
+                ),
+            ).x.value,
         )
     }
 

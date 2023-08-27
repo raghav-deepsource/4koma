@@ -101,7 +101,7 @@ class StringTests : StringTest {
 
         assertEquals(
             expected,
-            TomlValue.from(toml)
+            TomlValue.from(toml),
         )
     }
 
@@ -120,7 +120,7 @@ class StringTests : StringTest {
         assertDocumentParseError(
             """
                 invalid-codepoint = "This string contains a non scalar unicode codepoint \uD801"
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 }

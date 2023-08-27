@@ -19,14 +19,14 @@ class CustomSerializerTests : UnitTest {
                 "list" to TomlValue.List(
                     TomlValue.List(TomlValue.String("hello")),
                     TomlValue.List(TomlValue.String("world")),
-                )
+                ),
             ),
             """
                 list = [
                   [ "hello" ],
                   [ "world" ]
                 ]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -38,11 +38,11 @@ class CustomSerializerTests : UnitTest {
                 "object" to TomlValue.Map(
                     "hello" to TomlValue.String("world"),
                     "foo" to TomlValue.String("bar"),
-                )
+                ),
             ),
             """
                 object = { hello = "world", foo = "bar" }
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertSerializesTo(
@@ -51,13 +51,13 @@ class CustomSerializerTests : UnitTest {
                 "object" to TomlValue.Map(
                     "hello" to TomlValue.String("world"),
                     "foo" to TomlValue.String("bar"),
-                )
+                ),
             ),
             """
                 [object]
                 hello = "world"
                 foo = "bar"
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -69,14 +69,14 @@ class CustomSerializerTests : UnitTest {
                 "list" to TomlValue.List(
                     TomlValue.Map("hello" to TomlValue.String("world")),
                     TomlValue.Map("hello" to TomlValue.String("bar")),
-                )
+                ),
             ),
             """
                 list = [
                     { hello = "world" },
                     { hello = "bar" }
                 ]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertSerializesTo(
@@ -85,7 +85,7 @@ class CustomSerializerTests : UnitTest {
                 "list" to TomlValue.List(
                     TomlValue.Map("hello" to TomlValue.String("world")),
                     TomlValue.Map("hello" to TomlValue.String("bar")),
-                )
+                ),
             ),
             """
                 [[list]]
@@ -93,7 +93,7 @@ class CustomSerializerTests : UnitTest {
                 
                 [[list]]
                 hello = "bar"
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -105,11 +105,11 @@ class CustomSerializerTests : UnitTest {
                 "list" to TomlValue.List(
                     TomlValue.String("world"),
                     TomlValue.String("bar"),
-                )
+                ),
             ),
             """
                 list = [ "world", "bar" ]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -124,11 +124,11 @@ class CustomSerializerTests : UnitTest {
                 "list" to TomlValue.List(
                     TomlValue.Map("hello" to TomlValue.String("world")),
                     TomlValue.Map("hello" to TomlValue.String("bar")),
-                )
+                ),
             ),
             """
                 list = [ { hello = "world" }, { hello = "bar" } ]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -140,14 +140,14 @@ class CustomSerializerTests : UnitTest {
                 preferListSyntax(CollectionSyntax.Inline)
             },
             TomlValue.Map(
-                "list" to TomlValue.List(TomlValue.String("hello"), TomlValue.Integer(123))
+                "list" to TomlValue.List(TomlValue.String("hello"), TomlValue.Integer(123)),
             ),
             """
                 list = [
                     "hello",
                     123
                 ]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -161,12 +161,12 @@ class CustomSerializerTests : UnitTest {
             },
             TomlValue.Map(
                 "object" to TomlValue.Map(
-                    "list" to TomlValue.List(TomlValue.String("hello"), TomlValue.Integer(123))
-                )
+                    "list" to TomlValue.List(TomlValue.String("hello"), TomlValue.Integer(123)),
+                ),
             ),
             """
                 object = { list = [ "hello", 123 ] }
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 

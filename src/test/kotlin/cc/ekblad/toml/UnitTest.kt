@@ -19,7 +19,7 @@ interface UnitTest {
     fun assertParsesTo(expected: TomlValue, valueToParse: String) {
         assertEquals(
             TomlValue.Map(mapOf("test" to expected)),
-            TomlValue.from("test = $valueToParse")
+            TomlValue.from("test = $valueToParse"),
         )
     }
 

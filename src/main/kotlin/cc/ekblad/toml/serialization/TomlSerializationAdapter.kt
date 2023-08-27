@@ -150,7 +150,7 @@ private enum class QuoteType(val quotes: String) {
     Plain("\""),
     Literal("'"),
     Multiline("\"\"\""),
-    MultilineLiteral("'''")
+    MultilineLiteral("'''"),
 }
 
 private fun <T> List<T>.removeIf(condition: Boolean, vararg remove: T) = if (condition) {

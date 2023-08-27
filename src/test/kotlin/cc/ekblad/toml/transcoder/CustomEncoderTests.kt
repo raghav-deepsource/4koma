@@ -70,7 +70,7 @@ class CustomEncoderTests : UnitTest {
         assertEquals(TomlValue.String("foo"), mapper.encode(Foo("123")))
         assertEquals(
             TomlValue.Map("foo" to TomlValue.String("foo")),
-            mapper.encode(mapOf("foo" to Foo("123")))
+            mapper.encode(mapOf("foo" to Foo("123"))),
         )
     }
 
@@ -82,7 +82,7 @@ class CustomEncoderTests : UnitTest {
         assertEquals(TomlValue.Map("bar" to TomlValue.String("123")), mapper.encode(Foo("123")))
         assertEquals(
             TomlValue.Map("foo" to TomlValue.Map("bar" to TomlValue.String("123"))),
-            mapper.encode(mapOf("foo" to Foo("123")))
+            mapper.encode(mapOf("foo" to Foo("123"))),
         )
     }
 
@@ -106,7 +106,7 @@ class CustomEncoderTests : UnitTest {
                 "B" to TomlValue.Integer(2),
                 "c" to TomlValue.Integer(3),
             ),
-            mapper.encode(Test(1, 2, 3))
+            mapper.encode(Test(1, 2, 3)),
         )
     }
 
@@ -123,7 +123,7 @@ class CustomEncoderTests : UnitTest {
                 "B" to TomlValue.Integer(2),
                 "c" to TomlValue.Integer(3),
             ),
-            mapper.encode(Test(1, 2, 3))
+            mapper.encode(Test(1, 2, 3)),
         )
     }
 
@@ -140,7 +140,7 @@ class CustomEncoderTests : UnitTest {
                 "b" to TomlValue.Integer(2),
                 "c" to TomlValue.Integer(3),
             ),
-            mapper.encode(Test(1, 2, 3))
+            mapper.encode(Test(1, 2, 3)),
         )
     }
 
@@ -155,7 +155,7 @@ class CustomEncoderTests : UnitTest {
                 "b" to TomlValue.Integer(2),
                 "c" to TomlValue.Integer(3),
             ),
-            mapper.encode(Test(1, 2, 3))
+            mapper.encode(Test(1, 2, 3)),
         )
     }
 
@@ -216,9 +216,9 @@ class CustomEncoderTests : UnitTest {
         assertEquals(
             TomlValue.Map(
                 "name" to TomlValue.String("Anonymous"),
-                "age" to TomlValue.Integer(123)
+                "age" to TomlValue.Integer(123),
             ),
-            mapper.encode(User("Anonymous", 123, null))
+            mapper.encode(User("Anonymous", 123, null)),
         )
     }
 
@@ -236,9 +236,9 @@ class CustomEncoderTests : UnitTest {
         assertEquals(
             TomlValue.Map(
                 "name" to TomlValue.String("Anonymous"),
-                "years" to TomlValue.Integer(123)
+                "years" to TomlValue.Integer(123),
             ),
-            mapper.encode(User("Anonymous", 123, null))
+            mapper.encode(User("Anonymous", 123, null)),
         )
     }
 
@@ -253,9 +253,9 @@ class CustomEncoderTests : UnitTest {
         assertEquals(
             TomlValue.Map(
                 "fullName" to TomlValue.String("Anonymous"),
-                "age" to TomlValue.Integer(42)
+                "age" to TomlValue.Integer(42),
             ),
-            mapper.encode(User("Anonymous", 123, null))
+            mapper.encode(User("Anonymous", 123, null)),
         )
     }
 }

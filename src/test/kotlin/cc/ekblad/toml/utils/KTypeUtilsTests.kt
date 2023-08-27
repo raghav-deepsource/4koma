@@ -14,7 +14,7 @@ class KTypeUtilsTests {
         val parameter = Foo::class.typeParameters.single()
         assertEquals(
             typeOf<Int>(),
-            type.subst(mapOf(parameter to typeOf<Int>()))
+            type.subst(mapOf(parameter to typeOf<Int>())),
         )
     }
 
@@ -25,7 +25,7 @@ class KTypeUtilsTests {
         val parameter = Foo::class.typeParameters.single()
         assertEquals(
             typeOf<List<Int>>(),
-            type.subst(mapOf(parameter to typeOf<Int>()))
+            type.subst(mapOf(parameter to typeOf<Int>())),
         )
     }
 
@@ -36,7 +36,7 @@ class KTypeUtilsTests {
         val parameter = Foo::class.typeParameters.single()
         assertEquals(
             typeOf<List<List<List<*>>>>(),
-            type.subst(mapOf(parameter to typeOf<List<*>>()))
+            type.subst(mapOf(parameter to typeOf<List<*>>())),
         )
     }
 
@@ -46,7 +46,7 @@ class KTypeUtilsTests {
         val type = Foo::class.primaryConstructor!!.parameters.single().type
         assertEquals(
             type,
-            type.subst(emptyMap())
+            type.subst(emptyMap()),
         )
     }
 
@@ -55,7 +55,7 @@ class KTypeUtilsTests {
         val type = typeOf<List<*>>()
         assertEquals(
             type.arguments.single(),
-            type.subst(emptyMap()).arguments.single()
+            type.subst(emptyMap()).arguments.single(),
         )
     }
 }

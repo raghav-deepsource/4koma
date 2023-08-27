@@ -11,7 +11,7 @@ interface StringTest : RandomTest {
             "\\\"" to "\"",
             "\\\\" to "\\",
             "\\u00e5" to "å",
-            "\\U0001f63f" to "😿"
+            "\\U0001f63f" to "😿",
         )
 
     val alphabet: String

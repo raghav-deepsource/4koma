@@ -101,7 +101,7 @@ class TomlMapper internal constructor(
             mappings = decoder.mappings.mapValuesTo(mutableMapOf()) { (_, mappingForType) ->
                 mappingForType.entries.associateTo(mutableMapOf()) { it.value to it.key }
             },
-            defaultValues = decoder.defaultValues.toMutableMap()
+            defaultValues = decoder.defaultValues.toMutableMap(),
         )
     }
 }
@@ -153,7 +153,7 @@ inline fun <reified T : Any> TomlMapperConfigurator.delegate(mapper: TomlMapper)
 
 private fun tomlMapper(
     configurator: TomlMapperConfigurator,
-    configuration: TomlMapperConfigurator.() -> Unit
+    configuration: TomlMapperConfigurator.() -> Unit,
 ): TomlMapper {
     val config = configurator.apply(configuration).buildConfig()
     val mappingsByParameter = config.mappings.mapValues { (_, mappingForType) ->
@@ -173,7 +173,7 @@ private val defaultTomlMapper: TomlMapper by lazy {
         encoders = mutableMapOf(),
         decoders = mutableMapOf(),
         mappings = mutableMapOf(),
-        defaultValues = mutableMapOf()
+        defaultValues = mutableMapOf(),
     )
     tomlMapper(configurator, TomlMapperConfigurator::defaultConfig)
 }
@@ -242,7 +242,8 @@ private fun TomlMapperConfigurator.defaultConfig() {
             is TomlValue.LocalDateTime -> it.value
             is TomlValue.OffsetDateTime -> it.value
             is TomlValue.List,
-            is TomlValue.Map -> pass()
+            is TomlValue.Map,
+            -> pass()
         }
     }
 }

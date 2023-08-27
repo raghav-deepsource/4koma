@@ -60,7 +60,7 @@ interface RandomTest : UnitTest {
         val second = nextInt(0, 60)
         val nano = weighted(
             9 to { nextInt(0, 9999) * 10000 },
-            1 to { 0 }
+            1 to { 0 },
         )
         return LocalTime.of(hour, minute, second, nano)
     }

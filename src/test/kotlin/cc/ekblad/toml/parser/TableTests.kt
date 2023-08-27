@@ -37,10 +37,10 @@ class TableTests : UnitTest {
         val expected = TomlValue.Map(
             "foo" to TomlValue.Map(
                 "bar" to TomlValue.Map(
-                    "baz" to TomlValue.Integer(123)
+                    "baz" to TomlValue.Integer(123),
                 ),
-                "quux" to TomlValue.String("asd")
-            )
+                "quux" to TomlValue.String("asd"),
+            ),
         )
 
         assertEquals(expected, TomlValue.from(expr))
@@ -55,8 +55,8 @@ class TableTests : UnitTest {
 
         val expected = TomlValue.Map(
             "foo" to TomlValue.Map(
-                "bar" to TomlValue.Map()
-            )
+                "bar" to TomlValue.Map(),
+            ),
         )
 
         assertEquals(expected, TomlValue.from(expr))
@@ -71,8 +71,8 @@ class TableTests : UnitTest {
 
         val expected = TomlValue.Map(
             "foo" to TomlValue.Map(
-                "bar" to TomlValue.Map()
-            )
+                "bar" to TomlValue.Map(),
+            ),
         )
 
         assertEquals(expected, TomlValue.from(expr))
@@ -85,7 +85,7 @@ class TableTests : UnitTest {
             [foo.bar]
             [foo]
             [foo]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -108,14 +108,14 @@ class TableTests : UnitTest {
             "top" to TomlValue.String("    top!\n"),
             "foo" to TomlValue.Map(
                 "bar" to TomlValue.Integer(123),
-                "baz" to TomlValue.String("qwe")
+                "baz" to TomlValue.String("qwe"),
             ),
             "hello" to TomlValue.Map(
                 "world" to TomlValue.Bool(true),
                 "earth" to TomlValue.Map(
-                    "gravity" to TomlValue.Double(9.82)
-                )
-            )
+                    "gravity" to TomlValue.Double(9.82),
+                ),
+            ),
         )
 
         assertEquals(expected, TomlValue.from(expr))
@@ -138,8 +138,8 @@ class TableTests : UnitTest {
             "foo" to TomlValue.Map(
                 "bar.baz" to TomlValue.Map(
                     "bar" to TomlValue.Integer(123),
-                    "baz" to TomlValue.String("qwe")
-                )
+                    "baz" to TomlValue.String("qwe"),
+                ),
             ),
             "hello" to TomlValue.Map(
                 "world" to TomlValue.Map(
@@ -150,12 +150,12 @@ class TableTests : UnitTest {
                         "a" to TomlValue.Integer(1),
                         "b" to TomlValue.Integer(2),
                         "c" to TomlValue.Map(
-                            "d" to TomlValue.Integer(3)
-                        )
+                            "d" to TomlValue.Integer(3),
+                        ),
                     ),
-                    "last" to TomlValue.List(TomlValue.Map())
-                )
-            )
+                    "last" to TomlValue.List(TomlValue.Map()),
+                ),
+            ),
         )
 
         assertEquals(expected, TomlValue.from(expr))
@@ -167,21 +167,21 @@ class TableTests : UnitTest {
             """
                 [foo]
                 [foo]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
             """
                 foo.bar = 1
                 [foo]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
             """
                 foo.bar.baz = 1
                 [foo]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
@@ -189,7 +189,7 @@ class TableTests : UnitTest {
                 [foo]
                 bar = 'hello'
                 [foo.bar]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
@@ -198,14 +198,14 @@ class TableTests : UnitTest {
                 [bar]
                 baz = false
                 [foo]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
             """
                 foo.bar = 1
                 [foo]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
@@ -214,21 +214,21 @@ class TableTests : UnitTest {
                 apple.color = "red"
                 
                 [fruit.apple]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
             """
                 foo = {}
                 [foo]
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         assertDocumentParseError(
             """
                 foo = 123
                 [foo.bar]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 }

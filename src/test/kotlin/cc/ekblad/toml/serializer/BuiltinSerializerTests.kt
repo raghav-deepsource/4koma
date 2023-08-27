@@ -20,7 +20,7 @@ class BuiltinSerializerTests : UnitTest {
     fun `can serialize single key value pair`() {
         assertSerializesTo(
             TomlValue.Map("foo" to TomlValue.String("bar")),
-            "foo = \"bar\""
+            "foo = \"bar\"",
         )
     }
 
@@ -28,7 +28,7 @@ class BuiltinSerializerTests : UnitTest {
     fun `serializer should not quote keys because of underscores`() {
         assertSerializesTo(
             TomlValue.Map("foo_foo" to TomlValue.String("bar")),
-            "foo_foo = \"bar\""
+            "foo_foo = \"bar\"",
         )
     }
 
@@ -36,7 +36,7 @@ class BuiltinSerializerTests : UnitTest {
     fun `serializer should not quote keys because of dashes`() {
         assertSerializesTo(
             TomlValue.Map("foo-foo" to TomlValue.String("bar")),
-            "foo-foo = \"bar\""
+            "foo-foo = \"bar\"",
         )
     }
 
@@ -44,7 +44,7 @@ class BuiltinSerializerTests : UnitTest {
     fun `digit-only keys are ok`() {
         assertSerializesTo(
             TomlValue.Map("123" to TomlValue.String("bar")),
-            "123 = \"bar\""
+            "123 = \"bar\"",
         )
     }
 
@@ -62,9 +62,9 @@ class BuiltinSerializerTests : UnitTest {
     fun `can serialize top level list`() {
         assertSerializesTo(
             TomlValue.Map(
-                "list" to TomlValue.List(TomlValue.String("foo"), TomlValue.String("bar"))
+                "list" to TomlValue.List(TomlValue.String("foo"), TomlValue.String("bar")),
             ),
-            "list = [ \"foo\", \"bar\" ]"
+            "list = [ \"foo\", \"bar\" ]",
         )
     }
 
@@ -74,15 +74,15 @@ class BuiltinSerializerTests : UnitTest {
             TomlValue.Map(
                 "list" to TomlValue.List(
                     TomlValue.String("foo"),
-                    TomlValue.Map("bar" to TomlValue.String("baz"))
-                )
+                    TomlValue.Map("bar" to TomlValue.String("baz")),
+                ),
             ),
             """
             list = [
                 "foo",
                 { bar = "baz" }
             ]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -95,18 +95,18 @@ class BuiltinSerializerTests : UnitTest {
                     TomlValue.Map(
                         "bar" to TomlValue.List(
                             TomlValue.Map(
-                                "hello" to TomlValue.String("hi")
-                            )
-                        )
-                    )
-                )
+                                "hello" to TomlValue.String("hi"),
+                            ),
+                        ),
+                    ),
+                ),
             ),
             """
             list = [
                 "foo",
                 { bar = [ { hello = "hi" } ] }
             ]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -117,8 +117,8 @@ class BuiltinSerializerTests : UnitTest {
                 "list" to TomlValue.List(
                     TomlValue.Integer(123),
                     TomlValue.Map("bar" to TomlValue.String("foo")),
-                    TomlValue.Map("bar" to TomlValue.String("baz"))
-                )
+                    TomlValue.Map("bar" to TomlValue.String("baz")),
+                ),
             ),
             """
             list = [
@@ -126,7 +126,7 @@ class BuiltinSerializerTests : UnitTest {
                 { bar = "foo" },
                 { bar = "baz" }
             ]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -136,15 +136,15 @@ class BuiltinSerializerTests : UnitTest {
             TomlValue.Map(
                 "list" to TomlValue.List(
                     TomlValue.List(TomlValue.String("foo"), TomlValue.String("bar")),
-                    TomlValue.List(TomlValue.String("baz"))
-                )
+                    TomlValue.List(TomlValue.String("baz")),
+                ),
             ),
             """
             list = [
                 [ "foo", "bar" ],
                 [ "baz" ]
             ]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -158,7 +158,7 @@ class BuiltinSerializerTests : UnitTest {
                     "multilineString" to TomlValue.String("hello\nworld"),
                     "multilineLiteralString" to TomlValue.String("hello\n\"\"world\"\""),
                     "weird string" to TomlValue.String("'''hello\n\"\"world\"\"x"),
-                )
+                ),
             ),
             """
                 [foo]
@@ -171,7 +171,7 @@ class BuiltinSerializerTests : UnitTest {
                 hello
                 ""world""'''
                 'weird string' = "'''hello\n\"\"world\"\"x"
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -187,7 +187,7 @@ class BuiltinSerializerTests : UnitTest {
                     "bar again" to TomlValue.LocalDate(LocalDate.of(2021, 12, 13)),
                     "\"baz\"\nagain" to TomlValue.LocalDateTime(
                         LocalDateTime.of(2021, 12, 13, 0, 38, 11, 0),
-                    )
+                    ),
                 ),
             ),
             """
@@ -198,7 +198,7 @@ class BuiltinSerializerTests : UnitTest {
                 ['number two']
                 'bar again' = 2021-12-13
                 "\"baz\"\nagain" = 2021-12-13T00:38:11
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -208,11 +208,11 @@ class BuiltinSerializerTests : UnitTest {
             TomlValue.Map(
                 "foo" to TomlValue.Map(
                     "bar" to TomlValue.Map(
-                        "baz" to TomlValue.String("baztu")
+                        "baz" to TomlValue.String("baztu"),
                     ),
                     "baz" to TomlValue.Integer(0xffff),
                     "bark" to TomlValue.Map(
-                        "one" to TomlValue.Map("two" to TomlValue.LocalTime(LocalTime.of(0, 27)))
+                        "one" to TomlValue.Map("two" to TomlValue.LocalTime(LocalTime.of(0, 27))),
                     ),
                 ),
             ),
@@ -221,7 +221,7 @@ class BuiltinSerializerTests : UnitTest {
                 bar.baz = "baztu"
                 baz = 65535
                 bark.one.two = 00:27:00
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -236,7 +236,7 @@ class BuiltinSerializerTests : UnitTest {
                     ),
                     TomlValue.Map(
                         "one" to TomlValue.Map("two" to TomlValue.LocalTime(LocalTime.of(0, 27))),
-                        "in both" to TomlValue.Integer(42)
+                        "in both" to TomlValue.Integer(42),
                     ),
                 ),
             ),
@@ -248,7 +248,7 @@ class BuiltinSerializerTests : UnitTest {
                 [[foo]]
                 one.two = 00:27:00
                 'in both' = 42
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -266,8 +266,8 @@ class BuiltinSerializerTests : UnitTest {
                             "b" to TomlValue.List(TomlValue.Integer(345)),
                             "c" to TomlValue.List(),
                             "d" to TomlValue.String("hello"),
-                        )
-                    )
+                        ),
+                    ),
                 ),
             ),
             """
@@ -278,7 +278,7 @@ class BuiltinSerializerTests : UnitTest {
                     [ false, 1.2 ],
                     { a = { inner = "very inner" }, b = [ 345 ], c = [  ], d = "hello" }
                 ]
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -289,11 +289,11 @@ class BuiltinSerializerTests : UnitTest {
                 "key" to TomlValue.String("value"),
                 "foo" to TomlValue.Map(
                     "bar" to TomlValue.Map(
-                        "baz" to TomlValue.String("baztu")
+                        "baz" to TomlValue.String("baztu"),
                     ),
                     "baz" to TomlValue.Integer(0xffff),
                     "bark" to TomlValue.Map(
-                        "one" to TomlValue.Map("two" to TomlValue.LocalTime(LocalTime.of(0, 27)))
+                        "one" to TomlValue.Map("two" to TomlValue.LocalTime(LocalTime.of(0, 27))),
                     ),
                 ),
                 "yarr" to TomlValue.List(
@@ -303,11 +303,11 @@ class BuiltinSerializerTests : UnitTest {
                     ),
                     TomlValue.Map(
                         "one" to TomlValue.Map("two" to TomlValue.LocalTime(LocalTime.of(0, 27))),
-                        "in both" to TomlValue.Integer(42)
+                        "in both" to TomlValue.Integer(42),
                     ),
                 ),
                 "key2" to TomlValue.OffsetDateTime(
-                    OffsetDateTime.of(2021, 12, 13, 0, 38, 11, 0, ZoneOffset.UTC)
+                    OffsetDateTime.of(2021, 12, 13, 0, 38, 11, 0, ZoneOffset.UTC),
                 ),
             ),
             """
@@ -326,7 +326,7 @@ class BuiltinSerializerTests : UnitTest {
                 [[yarr]]
                 one.two = 00:27:00
                 'in both' = 42
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 

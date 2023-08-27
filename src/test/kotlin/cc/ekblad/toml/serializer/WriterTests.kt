@@ -23,11 +23,11 @@ class WriterTests : UnitTest {
         "key" to TomlValue.String("value"),
         "foo" to TomlValue.Map(
             "bar" to TomlValue.Map(
-                "baz" to TomlValue.String("baztu")
+                "baz" to TomlValue.String("baztu"),
             ),
             "baz" to TomlValue.Integer(0xffff),
             "bark" to TomlValue.Map(
-                "one" to TomlValue.Map("two" to TomlValue.LocalTime(LocalTime.of(0, 27)))
+                "one" to TomlValue.Map("two" to TomlValue.LocalTime(LocalTime.of(0, 27))),
             ),
         ),
         "yarr" to TomlValue.List(
@@ -37,11 +37,11 @@ class WriterTests : UnitTest {
             ),
             TomlValue.Map(
                 "one" to TomlValue.Map("two" to TomlValue.LocalTime(LocalTime.of(0, 27))),
-                "in both" to TomlValue.Integer(42)
+                "in both" to TomlValue.Integer(42),
             ),
         ),
         "key2" to TomlValue.OffsetDateTime(
-            OffsetDateTime.of(2021, 12, 13, 0, 38, 11, 0, ZoneOffset.UTC)
+            OffsetDateTime.of(2021, 12, 13, 0, 38, 11, 0, ZoneOffset.UTC),
         ),
     )
     private val expectedTomlDocument = """

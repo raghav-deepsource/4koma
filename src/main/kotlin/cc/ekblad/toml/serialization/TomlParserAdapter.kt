@@ -61,7 +61,7 @@ private fun throwOnWhitespaceBetweenBrackets(ctx: TomlParser.Array_tableContext)
     if (doubleBracketChars > 4) {
         throw TomlException.ParseError(
             "whitespace between table array-defining double brackets is illegal",
-            ctx.start.line
+            ctx.start.line,
         )
     }
 }
@@ -156,7 +156,7 @@ private fun TomlParser.Quoted_keyContext.extractQuotedKey(): List<String> =
         listOf(
             it.text.stripQuotes(1)
                 .throwOnBadChar(this, '\r', '\n')
-                .convertEscapeCodes(start.line)
+                .convertEscapeCodes(start.line),
         )
     } ?: LITERAL_STRING().let {
         listOf(it.text.stripQuotes(1).throwOnBadChar(this, '\r', '\n'))
@@ -180,7 +180,7 @@ private fun String.throwOnBadChar(ctx: ParserRuleContext, vararg extraBadChars: 
         val badChars = encounteredInvalidChars.joinToString(", ") { it.code.toString() }
         throw TomlException.ParseError(
             "disallowed character(s) encountered: $badChars",
-            ctx.start.line
+            ctx.start.line,
         )
     }
     return this
